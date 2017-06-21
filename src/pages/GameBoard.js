@@ -28,7 +28,7 @@ class GameBoard extends Component {
     // }
     return (
       <canvas style={{
-        backgroundColor: '#fff',
+        backgroundColor: 'transparent',
         marginLeft: 'auto',
         marginRight: 'auto',
         display: 'block',
