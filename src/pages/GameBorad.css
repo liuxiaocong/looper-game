@@ -1,0 +1,16 @@
+.game{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mask{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    background: url("../assets/turntable.png") no-repeat center center;
+    background-size: contain;
+    display: block;
+}

@@ -1,234 +1,246 @@
 import React, { Component } from 'react';
 import logo from '../assets/logo.svg';
-import './App.css';
+import './GameBorad.css';
 import { ImageUtil, Util } from '../util';
-import { LOOPER, STATE } from '../consts';
+import { LOOPER, STATE, UI, DEBUG_DATA } from '../consts';
 import  * as consts from '../consts';
-
-const canvasWidth = Util.getPxFromDp(300);
-const looperRadius = Util.getPxFromDp(100);
-
+const canvasWidth = Util.getPxFromDp( UI.LOOPER_SIZE );
+const looperRadius = Util.getPxFromDp( UI.LOOPER_SIZE / 2 - 2 );
 
 class GameBoard extends Component {
 
-  constructor(props) {
-    super(props);
-    this.gameState = props.data;
-    this.avatarArray = ['https://wangsu-image.rings.tv/images/2016/02/23/3b/__/3b1fda4a52c37d57bd4def3ec$fbb2a220160223.png'];
-    this.image = new Image();
-    this.image.src = this.avatarArray[0];
-    requestAnimationFrame(() => {
-      this.update()
-    });
-  }
+	constructor( props ) {
+		super( props );
+		this.gameState = props.data;
+		let userData = DEBUG_DATA.USER_LIST.slice( 0, 6 );
+		for ( let i = 0; i < userData.length; i++ ) {
+			let user = userData[ i ];
+			if ( user.avatar ) {
+				user.image = new Image();
+				user.image.src = user.avatar;
+				user.image.onload = () => {
+					user.isReady = true;
+				}
+			}
+		}
+		this.state = {
+			userList: userData,
+			color: UI.LOOPER_COLORS,
+		};
+		requestAnimationFrame( () => {
+			this.update()
+		} );
+	}
 
-  render() {
-    // if ( window.devicePixelRatio ) {
-    // 	canvasWidth = canvasWidth * window.devicePixelRatio;
-    // }
-    return (
-      <canvas style={{
-        backgroundColor: 'transparent',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        display: 'block',
-      }} ref="canvas" width={canvasWidth} height={canvasWidth}/>
-    )
-  }
+	loadImage() {
+		this.lineImage = new Image();
+		const lineUrl = require( '../assets/line.png' );
+		this.lineImage.src = lineUrl;
+		this.lineImage.onload = () => {
+			this.lineImage.isReady = true;
+			//this.drawLines( this.angle );
+			this.drawLines( this.angle );
+		}
+	}
 
-  componentDidMount() {
-    this.context = this.refs.canvas.getContext('2d');
-    this.context.imageSmoothingEnabled = true;
-    Util.setPixelated(this.context);
-  }
+	render() {
+		// if ( window.devicePixelRatio ) {
+		// 	canvasWidth = canvasWidth * window.devicePixelRatio;
+		// }
+		return (
+			<div className="game" style={{ width: canvasWidth, height: canvasWidth }}>
+				<canvas
+					style={{
+						backgroundColor: 'transparent',
+						marginLeft: 'auto',
+						marginRight: 'auto',
+						display: 'block',
+					}} ref="canvas" width={canvasWidth} height={canvasWidth}/>
+				<div className="mask"></div>
+			</div>
+		)
+	}
 
-  //End Mounting
+	componentDidMount() {
+		this.context = this.refs.canvas.getContext( '2d' );
+		this.context.imageSmoothingEnabled = true;
+		Util.setPixelated( this.context );
+		this.loadImage();
+	}
 
-  //Updating
-  componentWillReceiveProps(nextProps) {
+	//End Mounting
 
-  }
+	//Updating
+	componentWillReceiveProps( nextProps ) {
 
-  shouldComponentUpdate(nextProps, nextState) {
-    this.gameState = nextProps.data;
-    console.log('shouldComponentUpdate:' + this.gameState);
-    //control update logic
-    return false;
-  }
+	}
 
-  componentWillUpdate(nextProps, nextState) {
+	shouldComponentUpdate( nextProps, nextState ) {
+		this.gameState = nextProps.data;
+		console.log( 'shouldComponentUpdate:' + this.gameState );
+		//control update logic
+		return false;
+	}
 
-  }
+	componentWillUpdate( nextProps, nextState ) {
 
-  componentDidUpdate(prevProps, prevState) {
+	}
 
-  }
+	componentDidUpdate( prevProps, prevState ) {
 
-  //End Updating
+	}
 
-  //Un Mounting
-  componentWillUnmount() {
+	//End Updating
 
-  }
+	//Un Mounting
+	componentWillUnmount() {
 
-  update() {
-    this.draw();
-    requestAnimationFrame(() => {
-      this.update()
-    });
-  }
+	}
 
-  drawInit = () => {
-    console.log('drawInit');
-    if (!this.startTime) {
-      this.startTime = (new Date()).getTime();
-    }
-    if (!this.angle) {
-      this.angle = 0;
-    }
+	update() {
+		this.draw();
+		requestAnimationFrame( () => {
+			this.update()
+		} );
+	}
 
-    this.drawLoopsWithAngle(this.angle);
+	drawInit = () => {
+		console.log( 'drawInit' );
+		if ( !this.startTime ) {
+			this.startTime = (new Date()).getTime();
+		}
+		if ( !this.angle ) {
+			this.angle = -0.5 * Math.PI;
+		}
 
-  };
+		this.drawLoopsWithAngle( this.angle );
+		this.drawLines( this.angle );
+	};
 
-  drawAvatar(radius, x, y) {
+	drawAvatar( user, radius, x, y ) {
 
-// 		var scratchCanvas = document.createElement( "canvas" );
-// 		scratchCanvas.width = radius;
-// 		scratchCanvas.height = radius;
-// 		var scratchCTX = scratchCanvas.getContext( "2d" );
-// 		scratchCTX.save(); // 创建一个单独的区域
-// 		scratchCTX.fillStyle = "#000"; // 颜色不重要，但是需要全不透明
-// 		scratchCTX.globalCompositeOperation = 'destination-in';
-// 		scratchCTX.beginPath();
-// 		scratchCTX.arc( x, y, radius, 0, Math.PI * 4, true );
-// 		scratchCTX.closePath();
-// 		scratchCTX.fill();
-// 		scratchCTX.drawImage( this.image, 0, 0, this.image.width, this.image.height, 0, 0, radius * 2, radius * 2 );
-// 		scratchCTX.restore();
-// // 将裁剪出来的图像绘制在原canvas上
-// 		this.context.drawImage( scratchCanvas, 0, 0 );
+		let context = this.context;
+		context.save();
+		//context.globalCompositeOperation = 'destination-in';
+		context.beginPath();
+		if ( !user.isReady ) {
+			context.fillStyle = '#000';
+			context.strokeStyle = '#000';
+		}
+		context.arc( x, y, radius, 0, Math.PI * 4, true );
+		context.stroke();
+		context.closePath();
+		context.fill();
+		context.clip();
+		if ( user.isReady ) {
+			context.drawImage( user.image, 0, 0, user.image.width, user.image.height, x - radius, y - radius, radius * 2, radius * 2 );
+		}
+		context.restore();
+	}
 
-    let context = this.context;
-    context.beginPath();
-    context.arc(x, y, radius + 3, 0, Math.PI * 4, true);
-    context.strokeStyle = '#fff';
-    context.fillStyle = '#fff';
-    context.fill();
-    context.save();
-    //context.globalCompositeOperation = 'destination-in';
-    context.beginPath();
-    context.fillStyle = '#fff';
-    context.strokeStyle = '#fff';
-    context.arc(x, y, radius, 0, Math.PI * 4, true);
-    context.stroke();
-    context.closePath();
-    context.fill();
-    context.clip();
-    context.drawImage(this.image, 0, 0, this.image.width, this.image.height, x - radius, y - radius, radius * 2, radius * 2);
-    context.restore();
-  }
+	drawStartLoops = () => {
+		console.log( 'drawStartLoops' );
+		this.angle += consts.LOOPER.INIT_SPEED;
+		this.drawLoopsWithAngle( this.angle );
+	};
 
-  drawStartLoops = () => {
-    console.log('drawStartLoops');
-    this.angle += consts.LOOPER.INIT_SPEED;
-    if (!this.size) {
-      this.size = 20;
-      this.extend = true;
-    }
-    if (this.size >= 250) {
-      this.extend = false;
-    }
-    if (this.size <= 20) {
-      this.extend = true;
-    }
-    if (this.extend) {
-      this.size++;
-    } else {
-      this.size--;
-    }
-    this.drawLoopsWithAngle(this.angle);
-  };
+	drawStopLoops = () => {
 
-  drawStopLoops = () => {
+	};
 
-  };
+	drawLoopsWithAngle = ( angle ) => {
+		this.clear();
+		this.drawBaseCircle( angle );
+		this.drawLines( angle )
+	};
 
-  drawLoopsWithAngle = (angle) => {
-    this.clear();
-    //this.context.globalCompositeOperation = 'source-atop';
-    //this.context.imageSmoothingEnabled = false;
-    //Util.setPixelated( this.context );
-    // this.context.beginPath();
-    // this.context.arc( 250, 250, this.size, 0, 3 * Math.PI );
-    // this.context.stroke();
-    //
-    // this.context.beginPath();
-    // let timeSpan = (new Date()).getTime() - this.startTime;
-    // let percent = timeSpan / 20000;
-    // let x = percent * 500;
-    // this.context.arc( x, 450, 10, 0, 3 * Math.PI );
-    // this.context.stroke();
+	draw() {
+		switch ( this.gameState ) {
+			case consts.STATE.INIT: {
+				this.drawInit();
+			}
+				break;
+			case consts.STATE.START_LOOPS: {
+				this.drawStartLoops()
+			}
+				break;
+			case consts.STATE.STOP_LOOPS: {
+				this.drawStopLoops()
+			}
+				break;
+		}
+	}
 
-    this.drawBaseCircle();
-  };
+	drawLines = ( angle ) => {
+		if ( !this.lineImage.isReady ) {
+			return
+		}
+		let ctx = this.context;
+		let dDegree = 1 / this.state.userList.length * 360;
+		for ( let i = 0; i < this.state.userList.length; i++ ) {
+			ctx.save();
+			let halfDegree = 0.5 * dDegree * Math.PI / 180;
+			let degree = angle + i * dDegree * Math.PI / 180 + halfDegree;
+			ctx.translate(
+				canvasWidth / 2,
+				canvasWidth / 2
+			)
+			;
+			ctx.rotate( degree );
+			ctx.drawImage( this.lineImage,
+				0, 0,
+				this.lineImage.width,
+				this.lineImage.height,
+				-Util.getPxFromDp( UI.LINE_IMAGE.WIDTH ) / 2, 0,
+				Util.getPxFromDp( UI.LINE_IMAGE.WIDTH ),
+				Util.getPxFromDp( UI.LINE_IMAGE.HEIGHT )
+			);
+			ctx.restore();
+		}
+	}
 
-  draw() {
-    switch (this.gameState) {
-      case consts.STATE.INIT: {
-        this.drawInit();
-      }
-        break;
-      case consts.STATE.START_LOOPS: {
-        this.drawStartLoops()
-      }
-        break;
-      case consts.STATE.STOP_LOOPS: {
-        this.drawStopLoops()
-      }
-        break;
-    }
-  }
 
-  drawBaseCircle() {
-    let data = [20, 20, 20, 20, 20];
-    let color = ['#000000', '#FF0000', '#00FF00', '#0000FF', '#00FFFF', '#F20FFF'];
-    let ctx = this.context;
-    let startPoint = (0 + this.angle) * Math.PI;
-    let currentPast = 0;
-    for (let i = 0; i < data.length; i++) {
-      ctx.fillStyle = color[i];
-      ctx.strokeStyle = color[i];
-      ctx.beginPath();
-      ctx.moveTo(canvasWidth / 2, canvasWidth / 2);
-      ctx.arc(canvasWidth / 2, canvasWidth / 2, looperRadius, startPoint, startPoint + Math.PI * 2 * (data[i] / 100), false);
-      ctx.fill();
-      ctx.stroke();
-      let y = looperRadius * 0.5 * Math.sin(this.angle * Math.PI + Math.PI * ((currentPast + (data[i] / 2)) / 50));
-      let x = looperRadius * 0.5 * Math.cos(this.angle * Math.PI + Math.PI * ((currentPast + (data[i] / 2)) / 50));
-      this.drawAvatar(Util.getPxFromDp(15), canvasWidth / 2 + x, canvasWidth / 2 + y);
-      currentPast += data[i];
-      startPoint += Math.PI * 2 * (data[i] / 100);
-    }
-  }
+	drawBaseCircle( angle ) {
+		if ( !this.state.userList || this.state.userList.length == 0 ) {
+			this.drawDefault();
+			return;
+		}
+		let ctx = this.context;
+		let startPoint = angle;
+		let dxPoint = Math.PI * 2 * (1 / this.state.userList.length);
+		for ( let i = 0; i < this.state.userList.length; i++ ) {
+			ctx.fillStyle = this.state.color[ i ];
+			ctx.strokeStyle = this.state.color[ i ];
+			ctx.beginPath();
+			ctx.moveTo( canvasWidth / 2, canvasWidth / 2 );
+			ctx.arc( canvasWidth / 2, canvasWidth / 2, looperRadius, startPoint, startPoint + Math.PI * 2 * (1 / this.state.userList.length), false );
+			ctx.fill();
+			ctx.stroke();
+			let degree = (Math.PI * 2) * ((1 / this.state.userList.length) * i + (1 / (this.state.userList.length * 2)));
+			let y = looperRadius * 0.5 * Math.sin( angle + degree );
+			let x = looperRadius * 0.5 * Math.cos( angle + degree );
+			this.drawAvatar( this.state.userList[ i ], Util.getPxFromDp( UI.AVATAR_SIZE / 2 ), canvasWidth / 2 + x, canvasWidth / 2 + y );
+			startPoint += dxPoint;
+		}
+	}
 
-  clear() {
-    this.context.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
-  }
+	clear() {
+		this.context.clearRect( 0, 0, this.refs.canvas.width, this.refs.canvas.height );
+	}
 
-  getSufAngle() {
-    let subTime = (new Date()).getTime() - this.startTime;
-    let ret = 0.1;
-    if (subTime > 10000) {
-      ret = ret + (10000 - subTime) * 0.0001;
-    } else {
-      ret = ret - (subTime / 20000) * 0.1;
-    }
-    if (ret < 0) {
-      ret = 0;
-    }
-    return ret;
-  }
+	getSufAngle() {
+		let subTime = (new Date()).getTime() - this.startTime;
+		let ret = 0.1;
+		if ( subTime > 10000 ) {
+			ret = ret + (10000 - subTime) * 0.0001;
+		} else {
+			ret = ret - (subTime / 20000) * 0.1;
+		}
+		if ( ret < 0 ) {
+			ret = 0;
+		}
+		return ret;
+	}
 }
 
 export default GameBoard;

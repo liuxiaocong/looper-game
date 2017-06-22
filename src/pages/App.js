@@ -12,7 +12,7 @@ class App extends Component {
 		super( props );
 		this.state = { gameState: consts.STATE.INIT };
 		let scale = 1 / window.devicePixelRatio * 100;
-		document.getElementById( 'root-html' ).style = 'zoom:' + scale + '%';
+		document.documentElement.style.zoom = scale + '%';
 	}
 
 	render() {
