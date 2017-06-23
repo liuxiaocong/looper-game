@@ -6,7 +6,7 @@ body {
 }
 
 .app {
-
+    position: relative;
 }
 
 .app .bg-wrap {

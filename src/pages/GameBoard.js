@@ -12,7 +12,7 @@ class GameBoard extends Component {
 	constructor( props ) {
 		super( props );
 		this.gameState = props.data;
-		let userData = DEBUG_DATA.USER_LIST.slice( 0, 6 );
+		let userData = DEBUG_DATA.USER_LIST.slice( 0, 2 );
 		for ( let i = 0; i < userData.length; i++ ) {
 			let user = userData[ i ];
 			if ( user.avatar ) {
@@ -20,6 +20,7 @@ class GameBoard extends Component {
 				user.image.src = user.avatar;
 				user.image.onload = () => {
 					user.isReady = true;
+					this.draw();
 				}
 			}
 		}
@@ -27,9 +28,6 @@ class GameBoard extends Component {
 			userList: userData,
 			color: UI.LOOPER_COLORS,
 		};
-		requestAnimationFrame( () => {
-			this.update()
-		} );
 	}
 
 	loadImage() {
@@ -39,7 +37,7 @@ class GameBoard extends Component {
 		this.lineImage.onload = () => {
 			this.lineImage.isReady = true;
 			//this.drawLines( this.angle );
-			this.drawLines( this.angle );
+			this.draw();
 		}
 	}
 
@@ -66,6 +64,7 @@ class GameBoard extends Component {
 		this.context.imageSmoothingEnabled = true;
 		Util.setPixelated( this.context );
 		this.loadImage();
+		this.draw();
 	}
 
 	//End Mounting
@@ -78,7 +77,7 @@ class GameBoard extends Component {
 	shouldComponentUpdate( nextProps, nextState ) {
 		this.gameState = nextProps.data;
 		console.log( 'shouldComponentUpdate:' + this.gameState );
-		//control update logic
+		this.draw();
 		return false;
 	}
 
@@ -140,8 +139,11 @@ class GameBoard extends Component {
 
 	drawStartLoops = () => {
 		console.log( 'drawStartLoops' );
-		this.angle += consts.LOOPER.INIT_SPEED;
 		this.drawLoopsWithAngle( this.angle );
+		this.angle += this.getSufAngle();
+		requestAnimationFrame( () => {
+			this.draw()
+		} );
 	};
 
 	drawStopLoops = () => {
@@ -161,7 +163,7 @@ class GameBoard extends Component {
 			}
 				break;
 			case consts.STATE.START_LOOPS: {
-				this.drawStartLoops()
+				this.drawStartLoops();
 			}
 				break;
 			case consts.STATE.STOP_LOOPS: {
@@ -175,12 +177,13 @@ class GameBoard extends Component {
 		if ( !this.lineImage.isReady ) {
 			return
 		}
+		let lineAngle = angle - 0.5 * Math.PI;
 		let ctx = this.context;
+
 		let dDegree = 1 / this.state.userList.length * 360;
 		for ( let i = 0; i < this.state.userList.length; i++ ) {
 			ctx.save();
-			let halfDegree = 0.5 * dDegree * Math.PI / 180;
-			let degree = angle + i * dDegree * Math.PI / 180 + halfDegree;
+			let degree = lineAngle + i * dDegree * Math.PI / 180 ;
 			ctx.translate(
 				canvasWidth / 2,
 				canvasWidth / 2
@@ -198,7 +201,6 @@ class GameBoard extends Component {
 			ctx.restore();
 		}
 	}
-
 
 	drawBaseCircle( angle ) {
 		if ( !this.state.userList || this.state.userList.length == 0 ) {
@@ -229,17 +231,7 @@ class GameBoard extends Component {
 	}
 
 	getSufAngle() {
-		let subTime = (new Date()).getTime() - this.startTime;
-		let ret = 0.1;
-		if ( subTime > 10000 ) {
-			ret = ret + (10000 - subTime) * 0.0001;
-		} else {
-			ret = ret - (subTime / 20000) * 0.1;
-		}
-		if ( ret < 0 ) {
-			ret = 0;
-		}
-		return ret;
+		return consts.LOOPER.INIT_SPEED;
 	}
 }
 

@@ -5,6 +5,7 @@ import GameBoard from '../pages/GameBoard';
 import CommentButton from '../components/CommonButton';
 import Background from '../components/Background';
 import  * as consts from '../consts';
+import {Util} from '../util'
 const screenWidth = window.document.body.clientWidth * window.devicePixelRatio;
 class App extends Component {
 
@@ -17,11 +18,11 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="app">
+			<div className="app" style={{margin:Util.getPxFromDp(15),width:screenWidth-Util.getPxFromDp(30),height:screenWidth-Util.getPxFromDp(30)}}>
 				<div className="bg-wrap">
 					<Background
-						width={screenWidth}
-						height={screenWidth}
+						width={screenWidth-Util.getPxFromDp(30)}
+						height={screenWidth-Util.getPxFromDp(30)}
 					/>
 				</div>
 				<div className="game-wrap">
