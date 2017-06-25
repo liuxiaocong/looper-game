@@ -3,35 +3,36 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import './ListItem.css';
 
 export default class ListItem extends React.Component {
 
   static propTypes = {
     title: PropTypes.string,
     text: PropTypes.string,
-    onClick: PropTypes.string,
+    _onClick: PropTypes.func,
   };
 
   render() {
-
-    const itemContent = (this.onClick !== undefined)
+    const itemContent = (this.props.onClick !== undefined)
       ? (
-        <a onClick={this.props.onClick}>
-          <span>{this.props.title}</span>
-          <span>{this.props.text}</span>
+        <a onClick={this.props.onClick} className="list-item-content">
+          <span className="title">{this.props.title}</span>
+          <span className="flex-center">
+            <span className="text">{this.props.text}</span>
+            <i className="fa fa-chevron-right"/>
+          </span>
         </a>
       )
       : (
-        <span>
-          <span>{this.props.title}</span>
-          <span>{ this.props.text }</span>
+        <span className="list-item-content">
+          <span className="title">{this.props.title}</span>
+          <span className="text">{ this.props.text }</span>
         </span>
       );
 
     return (
-      <li>
-        {itemContent}
-      </li>
+      <li className="list-item">{itemContent}</li>
     )
   }
 }

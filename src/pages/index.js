@@ -4,11 +4,14 @@
 
 import MainPage from './Main';
 import GamePage from './Game';
-import EntranceFeePage from './EntranceFee';
-
+import EntranceFeeSettingPage from './EntranceFeeSetting';
+import MaxPlayerSettingPage from './MaxPlayerSetting';
+import DescriptionPage from './Description';
 
 export {
   MainPage,
   GamePage,
-  EntranceFeePage,
-}
+  EntranceFeeSettingPage,
+  MaxPlayerSettingPage,
+  DescriptionPage,
+};

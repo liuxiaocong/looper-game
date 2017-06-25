@@ -12,16 +12,14 @@ export default class Panel extends Component {
 
   static propTypes = {
     hasHeader: PropTypes.bool,
+    headerLeftButton: PropTypes.object,
+    headerRightButton: PropTypes.instanceOf(PanelHeaderButton),
+    headerTitle: PropTypes.instanceOf(PanelHeaderTitle),
   };
 
   static defaultProps = {
     hasHeader: false,
   };
-
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const cornerSize = Util.getPxFromDp(50);
@@ -29,9 +27,9 @@ export default class Panel extends Component {
 
     const panelHeader = this.props.hasHeader && (
         <div className="panel-header" style={{ height: cornerSize }}>
-          <PanelHeaderButton color={'blue'} icon={'fa-question-circle'}/>
-          <PanelHeaderTitle title={'entrancefee'}/>
-          <PanelHeaderButton color={'red'} icon={'fa-remove'}/>
+          {this.props.headerLeftButton || ''}
+          {this.props.headerTitle || ''}
+          {this.props.headerRightButton || ''}
         </div>
       );
 

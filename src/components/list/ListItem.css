@@ -1,0 +1,39 @@
+.list-item {
+    padding: 1rem 1rem;
+}
+
+.list-item .list-item-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-item .list-item-content .fa {
+    margin-left: 1rem;
+}
+
+.list-item .list-item-content .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.list-item .list-item-content .text {
+    font-size: 1.1rem;
+}
+
+/* Inside Well */
+.well .list-item {
+    background-color: rgba(166, 97, 46, 0.29);
+    box-shadow: 0 1px 0 0 #86542d, inset 0 1px 0 0 #86542d;
+}
+
+.well .list-item .list-item-content .title {
+    color: #ffcba3;
+}
+
+.well .list-item .list-item-content .text {
+    color: #edc5a6;
+}
+
+.well .list-item .list-item-content .fa {
+    color: #db9f71;
+}

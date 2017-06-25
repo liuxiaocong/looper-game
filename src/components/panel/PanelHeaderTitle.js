@@ -18,10 +18,10 @@ export default class PanelHeaderTitle extends React.Component {
 
   render() {
     const image = require(`../../assets/title_${this.props.title}.png`);
-    
+
     return (
       <div className="panel-header-title">
-        <img src={image}/>
+        <img src={image} alt=""/>
       </div>
     )
   }

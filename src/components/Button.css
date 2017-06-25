@@ -1,0 +1,27 @@
+.button {
+    display: flex;
+}
+
+.button .outer {
+    display: block;
+    border-radius: 3rem;
+    padding: .3rem;
+    background-image: linear-gradient(to right, rgba(168, 82, 14, .45), rgba(143, 75, 22, .45));
+    box-shadow: inset 0 1px 0 0 #4d290c, inset -0px -1px 0 0 #f6c1977f;
+}
+
+.button .inner {
+    display: block;
+    border-radius: 3rem;
+    background-image: linear-gradient(to right, #0c862e, #56cc3e);
+    box-shadow: 0 6px 3px 0 #0000004c, inset 0 1px 1px 0 #8bff58, inset 0 0 2px 0 #25c228;
+    border: solid 2px #183d04;
+}
+
+.button .text {
+    display: block;
+    padding: 1rem 6rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+}

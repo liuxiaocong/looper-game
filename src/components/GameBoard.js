@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './GameBorad.css';
-import { ImageUtil, Util } from '../util';
-import { LOOPER, STATE, UI, DEBUG_DATA } from '../consts';
+import { Util } from '../util';
+import { UI, DEBUG_DATA } from '../consts';
 import  * as consts from '../consts';
 const canvasWidth = Util.getPxFromDp(UI.LOOPER_SIZE);
 const looperRadius = Util.getPxFromDp(UI.LOOPER_SIZE / 2 - 2);
@@ -160,15 +160,17 @@ class GameBoard extends Component {
     switch (this.gameState) {
       case consts.STATE.INIT: {
         this.drawInit();
-      }
         break;
+      }
       case consts.STATE.START_LOOPS: {
         this.drawStartLoops();
-      }
         break;
-      case consts.STATE.STOP_LOOPS: {
-        this.drawStopLoops()
       }
+      case consts.STATE.STOP_LOOPS: {
+        this.drawStopLoops();
+        break;
+      }
+      default:
         break;
     }
   }
@@ -200,10 +202,10 @@ class GameBoard extends Component {
       );
       ctx.restore();
     }
-  }
+  };
 
   drawBaseCircle(angle) {
-    if (!this.state.userList || this.state.userList.length == 0) {
+    if (!this.state.userList || this.state.userList.length === 0) {
       this.drawDefault();
       return;
     }

@@ -1,13 +1,13 @@
 /**
  * All Codes below are Lifetime Warranted by mozat-tomi since 25/6/17.
  */
-import React, { Component } from 'react';
-import '../main.css';
-import GameBoard from '../components/GameBoard';
-import Panel from '../components/panel/Panel';
+import React from 'react';
+import { GameBoard, Panel } from '../components';
 import  * as consts from '../consts';
+import '../main.css';
 
-export default class Game extends Component {
+
+export default class Game extends React.Component {
 
   constructor(props) {
     super(props);
@@ -23,12 +23,9 @@ export default class Game extends Component {
   render() {
     return (
       <Panel>
-        <GameBoard
-          ref="gameBoard"
-          data={this.state.gameState}/>
+        <GameBoard ref="gameBoard" data={this.state.gameState}/>
         <button style={{ width: 80, height: 50, marginRight: 30 }} onClick={this.start}>Start</button>
         <button style={{ width: 80, height: 50, marginRight: 30 }} onClick={this.stop}>Stop</button>
-
       </Panel>
     )
   }
