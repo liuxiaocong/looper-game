@@ -3,8 +3,10 @@
 }
 
 .panel-bg {
+    position: absolute;
     display: flex;
     flex-direction: column;
+    z-index: -1;
 }
 
 .panel-bg .top-wrap {
@@ -67,7 +69,7 @@
     background-size: contain;
 }
 
-.panel-buttons {
+.panel-header {
     position: absolute;
     top: 0;
     width: 100%;

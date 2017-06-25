@@ -2,12 +2,22 @@
  * Created by xiaoconglau on 21/06/2017.
  */
 import React, { Component } from 'react';
-import { Util } from '../../util'
+import PropTypes from 'prop-types';
 import PanelHeaderButton from './PanelHeaderButton';
 import PanelHeaderTitle from './PanelHeaderTitle';
 import './Panel.css'
+import { Util } from '../../util'
 
 export default class Panel extends Component {
+
+  static propTypes = {
+    hasHeader: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    hasHeader: false,
+  };
+
 
   constructor(props) {
     super(props);
@@ -15,14 +25,24 @@ export default class Panel extends Component {
 
   render() {
     const cornerSize = Util.getPxFromDp(50);
-    const size = {
-      width: Util.getDimensions(30),
-      height: Util.getDimensions(30),
-    };
+    const panelSize = Util.getDimensions(30);
+
+    const panelHeader = this.props.hasHeader && (
+        <div className="panel-header" style={{ height: cornerSize }}>
+          <PanelHeaderButton color={'blue'} icon={'fa-question-circle'}/>
+          <PanelHeaderTitle title={'entrancefee'}/>
+          <PanelHeaderButton color={'red'} icon={'fa-remove'}/>
+        </div>
+      );
+
+    const contentMargin = this.props.hasHeader
+      ? { paddingTop: cornerSize }
+      : {};
 
     return (
       <div className="panel">
-        <div className="panel-bg" style={{ height: size.height, width: size.width }}>
+        {/* this Bg thing only for background*/}
+        <div className="panel-bg" style={{ height: panelSize, width: panelSize }}>
           <div className="top-wrap">
             <div className="top-left" style={{ width: cornerSize, height: cornerSize }}/>
             <div className="top-middle" style={{ height: cornerSize }}/>
@@ -31,7 +51,7 @@ export default class Panel extends Component {
 
           <div className="middle-wrap">
             <div className="middle-left" style={{ width: cornerSize }}/>
-            <div className="middle-middle">{ this.props.children }</div>
+            <div className="middle-middle"/>
             <div className="middle-right" style={{ width: cornerSize }}/>
           </div>
 
@@ -42,10 +62,10 @@ export default class Panel extends Component {
           </div>
         </div>
 
-        <div className="panel-buttons">
-          <PanelHeaderButton color={'blue'} icon={'fa-question-circle'}/>
-          <PanelHeaderTitle title={'entrancefee'}/>
-          <PanelHeaderButton color={'red'} icon={'fa-remove'}/>
+        {panelHeader}
+
+        <div className="panel-content" style={{ padding: Util.getPxFromDp(15), ...contentMargin }}>
+          { this.props.children }
         </div>
       </div>
     )

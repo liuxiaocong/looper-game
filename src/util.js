@@ -3,7 +3,7 @@
  */
 
 export const Util = {
-  setPixelated: function(context) {
+  setPixelated(context) {
     context['imageSmoothingEnabled'] = false;
     /* standard */
     context['mozImageSmoothingEnabled'] = false;
@@ -16,13 +16,19 @@ export const Util = {
     /* IE */
   },
 
-  getPxFromDp: function(dp) {
+  getPxFromDp(dp) {
     return window.devicePixelRatio * dp;
   },
 
-  getDimensions (dp) {
+  getDimensions(dp) {
     const screenWidth = window.document.body.clientWidth;
     return screenWidth - this.getPxFromDp(dp);
+  },
+
+  layout() {
+    const scale = 1 / window.devicePixelRatio;
+    document.documentElement.style.zoom = scale * 100 + '%';
+    document.documentElement.style.fontSize = 14 / scale + 'px';
   },
 
 };

@@ -1,0 +1,8 @@
+.well {
+    border-radius: 20px;
+    background-color: #5d3210;
+    box-shadow: 0 5px 0 0 #f9974b, inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
+    border: solid 3px #512605;
+    line-height: 1.41;
+    color: #b6855f;
+}
