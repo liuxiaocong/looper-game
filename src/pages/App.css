@@ -9,10 +9,6 @@ body {
     position: relative;
 }
 
-.app .bg-wrap {
-    position: absolute
-}
-
-.app .game-wrap {
-
+* {
+    box-sizing: border-box;
 }

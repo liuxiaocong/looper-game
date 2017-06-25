@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../assets/logo.svg';
 import '../pages/App.css';
 
 export default class App extends Component {

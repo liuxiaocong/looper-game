@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../assets/logo.svg';
 import './GameBorad.css';
 import { ImageUtil, Util } from '../util';
 import { LOOPER, STATE, UI, DEBUG_DATA } from '../consts';

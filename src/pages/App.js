@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import GameBoard from '../pages/GameBoard';
-import Panel from '../components/Panel';
+import Panel from '../components/panel/Panel';
 import  * as consts from '../consts';
 import { Util } from '../util'
 import { PkApi } from '../PKAPI';

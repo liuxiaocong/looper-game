@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 
 export default class CommentButton extends Component {
+
   constructor(props) {
     super(props);
 
