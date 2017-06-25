@@ -1,0 +1,64 @@
+.bg {
+    display: flex;
+    flex-direction: column;
+}
+
+.bg .top-wrap {
+    display: flex;
+}
+
+.bg .top-left {
+    background: url("../assets/bg_top_left.png");
+    background-size: contain;
+}
+
+.bg .top-middle {
+    background: url("../assets/bg_top_middle.png");
+    background-size: contain;
+    flex-grow: 1;
+}
+
+.bg .top-right {
+    background: url("../assets/bg_top_right.png");
+    background-size: contain;
+}
+
+.bg .middle-wrap {
+    display: flex;
+    flex-grow: 1;
+}
+
+.bg .middle-left {
+    background: url("../assets/bg_middle_left.png");
+    background-size: contain;
+}
+
+.bg .middle-middle {
+    background: url("../assets/bg_middle_middle.png");
+    flex-grow: 1;
+}
+
+.bg .middle-right {
+    background: url("../assets/bg_middle_right.png");
+    background-size: contain;
+}
+
+.bg .bottom-wrap {
+    display: flex;
+}
+
+.bg .bottom-left {
+    background: url("../assets/bg_bottom_left.png");
+    background-size: contain;
+}
+
+.bg .bottom-middle {
+    background: url("../assets/bg_bottom_middle.png");
+    flex-grow: 1;
+    background-size: contain;
+}
+
+.bg .bottom-right {
+    background: url("../assets/bg_bottom_right.png");
+    background-size: contain;
+}

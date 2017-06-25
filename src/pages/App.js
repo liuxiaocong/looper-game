@@ -1,85 +1,50 @@
 import React, { Component } from 'react';
-import logo from '../assets/logo.svg';
 import './App.css';
 import GameBoard from '../pages/GameBoard';
-import CommentButton from '../components/CommonButton';
-import Background from '../components/Background';
+import Panel from '../components/Panel';
 import  * as consts from '../consts';
-import {Util} from '../util'
-const screenWidth = window.document.body.clientWidth * window.devicePixelRatio;
-class App extends Component {
+import { Util } from '../util'
+import { PkApi } from '../PKAPI';
 
-	constructor( props ) {
-		super( props );
-		this.state = { gameState: consts.STATE.INIT };
-		let scale = 1 / window.devicePixelRatio * 100;
-		document.documentElement.style.zoom = scale + '%';
-	}
+export default class App extends Component {
 
-	render() {
-		return (
-			<div className="app" style={{margin:Util.getPxFromDp(15),width:screenWidth-Util.getPxFromDp(30),height:screenWidth-Util.getPxFromDp(30)}}>
-				<div className="bg-wrap">
-					<Background
-						width={screenWidth-Util.getPxFromDp(30)}
-						height={screenWidth-Util.getPxFromDp(30)}
-					/>
-				</div>
-				<div className="game-wrap">
-					<button style={{ width: 80, height: 50, marginRight: 30 }} onClick={this.start}>Start</button>
-					<button style={{ width: 80, height: 50, marginRight: 30 }} onClick={this.stop}>Stop</button>
-					<GameBoard
-						ref="gameBoard"
-						data={this.state.gameState}
-					/>
-				</div>
-			</div>
-		)
-	}
+  constructor(props) {
+    super(props);
+    this.state = { gameState: consts.STATE.INIT };
+    this._layout();
+  }
 
-	componentDidMount() {
+  _layout() {
+    const scale = 1 / window.devicePixelRatio * 100;
+    document.body.style.zoom = scale + '%';
+  }
 
-	}
+  render() {
+    const size = {
+      width: Util.getDimensions(30),
+      height: Util.getDimensions(30),
+    };
 
-	//End Mounting
+    return (
+      <div className="app" style={{ margin: Util.getPxFromDp(15), width: size.width, height: size.height }}>
+        <Panel>
+          <button style={{ width: 80, height: 50, marginRight: 30 }} onClick={this.start}>Start</button>
+          <button style={{ width: 80, height: 50, marginRight: 30 }} onClick={this.stop}>Stop</button>
 
-	//Updating
-	componentWillReceiveProps( nextProps ) {
+          <GameBoard
+            ref="gameBoard"
+            data={this.state.gameState}
+          />
+        </Panel>
+      </div>
+    )
+  }
 
-	}
+  start = () => {
+    this.setState({ gameState: consts.STATE.START_LOOPS })
+  };
 
-	shouldComponentUpdate( nextProps, nextState ) {
-		return true;
-	}
-
-	componentWillUpdate( nextProps, nextState ) {
-
-	}
-
-	componentDidUpdate( prevProps, prevState ) {
-
-	}
-
-	//End Updating
-
-	//Un Mounting
-	componentWillUnmount() {
-
-	}
-
-	gameStart = () => {
-		this.setState( {
-			gameState: 1,
-		} )
-	}
-
-	start = () => {
-		this.setState( { gameState: consts.STATE.START_LOOPS } )
-	}
-
-	stop = () => {
-		this.setState( { gameState: consts.STATE.STOP_LOOPS } )
-	}
+  stop = () => {
+    this.setState({ gameState: consts.STATE.STOP_LOOPS })
+  }
 }
-
-export default App;

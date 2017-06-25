@@ -19,6 +19,12 @@ export const Util = {
   getPxFromDp: function(dp) {
     return window.devicePixelRatio * dp;
   },
+
+  getDimensions (dp) {
+    const screenWidth = window.document.body.clientWidth;
+    return screenWidth - this.getPxFromDp(dp);
+  },
+
 };
 
 export const ImageUtil = {
@@ -27,7 +33,7 @@ export const ImageUtil = {
     _image.onload = function() {
       //console.log("onload:" + uri);
       context.drawImage(_image, x, y);
-    }
+    };
     _image.src = uri;
   },
 };
