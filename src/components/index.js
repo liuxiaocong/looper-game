@@ -8,6 +8,8 @@ import Well from './Well';
 import List from './list/List';
 import ListItem from './list/ListItem';
 import ListItemDescription from './list/ListItemDescription';
+import ListRadio from './list/ListRadio';
+import ListRadioItem from './list/ListRadioItem';
 import Button from './Button';
 import GameBoard from './GameBoard';
 
@@ -21,4 +23,6 @@ export {
   ListItemDescription,
   Button,
   GameBoard,
+  ListRadio,
+  ListRadioItem,
 };
