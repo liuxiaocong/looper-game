@@ -3,8 +3,6 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PanelHeaderButton from './PanelHeaderButton';
-import PanelHeaderTitle from './PanelHeaderTitle';
 import './Panel.css'
 import { Util } from '../../util'
 
@@ -13,8 +11,8 @@ export default class Panel extends Component {
   static propTypes = {
     hasHeader: PropTypes.bool,
     headerLeftButton: PropTypes.object,
-    headerRightButton: PropTypes.instanceOf(PanelHeaderButton),
-    headerTitle: PropTypes.instanceOf(PanelHeaderTitle),
+    headerRightButton: PropTypes.object,
+    headerTitle: PropTypes.object,
   };
 
   static defaultProps = {
@@ -27,9 +25,9 @@ export default class Panel extends Component {
 
     const panelHeader = this.props.hasHeader && (
         <div className="panel-header" style={{ height: cornerSize }}>
-          {this.props.headerLeftButton || ''}
-          {this.props.headerTitle || ''}
-          {this.props.headerRightButton || ''}
+          {this.props.headerLeftButton || <span/>}
+          {this.props.headerTitle || <span/>}
+          {this.props.headerRightButton || <span/>}
         </div>
       );
 

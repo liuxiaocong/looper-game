@@ -3,21 +3,26 @@
  */
 import React from 'react';
 import { Panel, PanelHeaderButton, Well, ListRadio } from '../components';
+import { setEntranceFee } from '../redux/actions'
+import { connect } from 'react-redux'
+import { SettingKeys } from '../consts';
 
-export default class EntranceFeeSetting extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'entrance-fee',
-      value: 10,
-    }
-  }
+const mapStateToProps = state => ({
+  settings: state.settings,
+});
 
-  // Change to Redux later for global control
+const mapDispatchToProps = dispatch => ({
+  setEntranceFee: fee => {
+    dispatch(setEntranceFee(fee))
+  },
+});
+
+class EntranceFeeSetting extends React.Component {
+
   onChange = (newValue) => {
     // return data format is liek  [name]: value
-    this.setState({ value: newValue[this.state.name] })
+    this.props.setEntranceFee(newValue[SettingKeys.EntranceFee]);
   };
 
   render() {
@@ -30,7 +35,7 @@ export default class EntranceFeeSetting extends React.Component {
         headerLeftButton={panelLeftButton}>
         <Well>
           <ListRadio
-            name={this.state.name}
+            name={SettingKeys.EntranceFee}
             options={[
               { text: 'Free', value: 0 },
               { text: '10 Coins', value: 10 },
@@ -38,10 +43,15 @@ export default class EntranceFeeSetting extends React.Component {
               { text: '100 Coins', value: 100 },
               { text: '200 Coins', value: 200 },
             ]}
-            value={this.state.value}
+            value={this.props.settings[SettingKeys.EntranceFee]}
             onChange={this.onChange}/>
         </Well>
       </Panel>
     )
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EntranceFeeSetting);

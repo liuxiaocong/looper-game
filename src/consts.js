@@ -75,3 +75,9 @@ export const DEBUG_DATA = {
       avatar: 'https://wangsu-image.rings.tv/images/2016/06/04/47/__/47d1e65fe0762cc77b6aa09b4$d7c2af20160604.jpeg',
     }],
 };
+
+
+export const SettingKeys = {
+  EntranceFee: 'EntranceFee',
+  MaxPlayer: 'MaxPlayer',
+};

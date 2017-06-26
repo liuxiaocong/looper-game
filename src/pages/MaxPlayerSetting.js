@@ -3,21 +3,26 @@
  */
 import React from 'react';
 import { Panel, PanelHeaderButton, Well, ListRadio } from '../components';
+import { setMaxPlayer } from '../redux/actions'
+import { connect } from 'react-redux'
+import { SettingKeys } from '../consts';
 
-export default class MaxPlayerSetting extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'max-player',
-      value: 6,
-    }
-  }
+const mapStateToProps = state => ({
+  settings: state.settings,
+});
 
-  // Change to Redux later for global control
+const mapDispatchToProps = dispatch => ({
+  setMaxPlayer: maxPlayer => {
+    dispatch(setMaxPlayer(maxPlayer))
+  },
+});
+
+class MaxPlayerSetting extends React.Component {
+
   onChange = (newValue) => {
     // return data format is liek  [name]: value
-    this.setState({ value: newValue[this.state.name] })
+    this.props.setMaxPlayer(newValue[SettingKeys.MaxPlayer])
   };
 
   render() {
@@ -30,16 +35,21 @@ export default class MaxPlayerSetting extends React.Component {
         headerLeftButton={panelLeftButton}>
         <Well>
           <ListRadio
-            name={this.state.name}
+            name={SettingKeys.MaxPlayer}
             options={[
               { text: 6, value: 6 },
               { text: 8, value: 8 },
               { text: 10, value: 10 },
             ]}
-            value={this.state.value}
+            value={this.props.settings[SettingKeys.MaxPlayer]}
             onChange={this.onChange}/>
         </Well>
       </Panel>
     )
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MaxPlayerSetting);

@@ -4,6 +4,7 @@
 
 import Panel from './panel/Panel'
 import PanelHeaderButton from './panel/PanelHeaderButton';
+import PanelHeaderTitle from './panel/PanelHeaderTitle';
 import Well from './Well';
 import List from './list/List';
 import ListItem from './list/ListItem';
@@ -15,6 +16,7 @@ import GameBoard from './GameBoard';
 export {
   Panel,
   PanelHeaderButton,
+  PanelHeaderTitle,
   Well,
   List,
   ListItem,

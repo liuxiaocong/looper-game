@@ -3,9 +3,16 @@
  */
 import React from 'react';
 import { Panel, Well, List, ListItem, ListItemDescription, Button, PanelHeaderButton } from '../components';
+import { connect } from 'react-redux'
+import { SettingKeys } from '../consts';
 import './Main.css';
 
-export default class Main extends React.Component {
+
+const mapStateToProps = state => ({
+  settings: state.settings,
+});
+
+class Main extends React.Component {
 
   render() {
     const leftHeaderButton =
@@ -22,11 +29,11 @@ export default class Main extends React.Component {
         <Well hasPadding={true}>
           <List>
             <ListItem title="Entrance Fee"
-                      text="10 Coins"
+                      text={`${this.props.settings[SettingKeys.EntranceFee]} Coins`}
                       onClick={() => this.props.history.push('/entrance-fee')}/>
             <ListItemDescription text="You and final winner will be rewarded for certain coins"/>
             <ListItem title="Max Player"
-                      text="6"
+                      text={this.props.settings[SettingKeys.MaxPlayer]}
                       onClick={() => this.props.history.push('/max-players')}/>
 
             <div className="button-container">
@@ -38,3 +45,7 @@ export default class Main extends React.Component {
     )
   }
 }
+
+export default connect(
+  mapStateToProps,
+)(Main);

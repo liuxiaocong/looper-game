@@ -9,7 +9,7 @@ export default class ListItem extends React.Component {
 
   static propTypes = {
     title: PropTypes.string,
-    text: PropTypes.string,
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     _onClick: PropTypes.func,
   };
 
