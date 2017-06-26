@@ -19,7 +19,7 @@ export default class Main extends React.Component {
         headerLeftButton={leftHeaderButton}
         hasHeader={true}>
 
-        <Well>
+        <Well hasPadding={true}>
           <List>
             <ListItem title="Entrance Fee"
                       text="10 Coins"
