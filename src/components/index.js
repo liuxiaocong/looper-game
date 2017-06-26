@@ -12,6 +12,7 @@ import ListItemDescription from './list/ListItemDescription';
 import ListRadio from './list/ListRadio';
 import Button from './Button';
 import GameBoard from './GameBoard';
+import Avatar from './Avatar';
 
 export {
   Panel,
@@ -24,4 +25,5 @@ export {
   Button,
   GameBoard,
   ListRadio,
+  Avatar,
 };

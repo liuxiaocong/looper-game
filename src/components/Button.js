@@ -13,7 +13,6 @@ export default class Button extends React.Component {
   };
 
   render() {
-
     const buttonWidth = (this.props.width !== 0) &&
       { width: this.props.width };
 

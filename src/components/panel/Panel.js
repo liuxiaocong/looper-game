@@ -9,6 +9,7 @@ import { Util } from '../../util'
 export default class Panel extends Component {
 
   static propTypes = {
+    name: PropTypes.string,
     hasHeader: PropTypes.bool,
     headerLeftButton: PropTypes.object,
     headerRightButton: PropTypes.object,
@@ -36,7 +37,7 @@ export default class Panel extends Component {
       : {};
 
     return (
-      <div className="panel">
+      <div className={`panel ${this.props.name}`}>
         {/* this Bg thing only for background*/}
         <div className="panel-bg" style={{ height: panelSize, width: panelSize }}>
           <div className="top-wrap">

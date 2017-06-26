@@ -7,6 +7,7 @@ import GamePage from './Game';
 import EntranceFeeSettingPage from './EntranceFeeSetting';
 import MaxPlayerSettingPage from './MaxPlayerSetting';
 import DescriptionPage from './Description';
+import ResultPage from './Result';
 
 export {
   MainPage,
@@ -14,4 +15,5 @@ export {
   EntranceFeeSettingPage,
   MaxPlayerSettingPage,
   DescriptionPage,
+  ResultPage,
 };

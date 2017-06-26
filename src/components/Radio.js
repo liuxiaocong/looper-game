@@ -17,12 +17,10 @@ export default class Radio extends React.Component {
 
   render() {
     const element = this.props.checked
-      ?
-      <span className="radio checked" onClick={() => this.props.onChange(this.props.value)}>
-        <i className="fa fa-check"/>
-      </span>
-      :
-      <span className="radio" onClick={() => this.props.onChange(this.props.value)}/>;
+      ? <span className="radio checked" onClick={() => this.props.onChange(this.props.value)}>
+          <i className="fa fa-check"/>
+        </span>
+      : <span className="radio" onClick={() => this.props.onChange(this.props.value)}/>;
 
     return (
       <div className="radio-group">

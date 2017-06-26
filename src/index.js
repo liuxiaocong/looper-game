@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import GameReducer from './redux/reducer';
 import createBrowserHistory from 'history/createBrowserHistory'
-import { MainPage, GamePage, EntranceFeeSettingPage, MaxPlayerSettingPage, DescriptionPage } from './pages';
+import { MainPage, ResultPage, GamePage, EntranceFeeSettingPage, MaxPlayerSettingPage, DescriptionPage } from './pages';
 import { Util } from './util'
 import './main.css';
 
@@ -25,6 +25,7 @@ ReactDOM.render(
         <Route path="/game" component={GamePage}/>
         <Route path="/max-players" component={MaxPlayerSettingPage}/>
         <Route path="/description" component={DescriptionPage}/>
+        <Route path="/result" component={ResultPage}/>
       </div>
     </Router>
   </Provider>
