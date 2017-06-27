@@ -5,36 +5,45 @@ import React from 'react';
 import { GameBoard, Panel } from '../components';
 import  * as consts from '../consts';
 import '../main.css';
+import { connect } from 'react-redux'
 
+const mapStateToProps = state => ({
+	settings: state.settings,
+});
 
-export default class Game extends React.Component {
+const mapDispatchToProps = dispatch => ({
+	// setMaxPlayer: maxPlayer => {
+	// 	dispatch( setMaxPlayer( maxPlayer ) )
+	// },
+});
 
-  constructor(props) {
-    super(props);
-    this.state = { gameState: consts.STATE.INIT };
-    this._layout();
-  }
+class Game extends React.Component {
 
-  _layout() {
-    const scale = 1 / window.devicePixelRatio * 100;
-    document.body.style.zoom = scale + '%';
-  }
+	constructor( props ) {
+		super( props );
+		this.state = { gameState: consts.STATE.INIT };
+	}
 
-  render() {
-    return (
-      <Panel>
-        <GameBoard ref="gameBoard" data={this.state.gameState}/>
-        <button style={{ width: 80, height: 50, marginRight: 30 }} onClick={this.start}>Start</button>
-        <button style={{ width: 80, height: 50, marginRight: 30 }} onClick={this.stop}>Stop</button>
-      </Panel>
-    )
-  }
+	render() {
+		return (
+			<Panel>
+				<GameBoard ref="gameBoard" data={this.state.gameState}/>
+				<button style={{ width: 80, height: 50, marginRight: 30 }} onClick={this.start}>Start</button>
+				<button style={{ width: 80, height: 50, marginRight: 30 }} onClick={this.stop}>Stop</button>
+			</Panel>
+		)
+	}
 
-  start = () => {
-    this.setState({ gameState: consts.STATE.START_LOOPS })
-  };
+	start = () => {
+		this.setState( { gameState: consts.STATE.START_LOOPS } )
+	};
 
-  stop = () => {
-    this.setState({ gameState: consts.STATE.STOP_LOOPS })
-  }
+	stop = () => {
+		this.setState( { gameState: consts.STATE.STOP_LOOPS } )
+	}
 }
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)( Game );

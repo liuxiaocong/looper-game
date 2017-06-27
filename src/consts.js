@@ -8,7 +8,12 @@ export const STATE = {
 };
 
 export const LOOPER = {
-	INIT_SPEED: 0.4,
+	INIT_SPEED: 0,
+	SPEED: {
+		//x : [0,PI/2]
+		SPEED_UP_TIME: 2,
+		COEFFICIENT: 0.6,
+	}
 };
 
 export const UI = {
