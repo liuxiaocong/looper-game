@@ -148,7 +148,12 @@ class GameBoard extends Component {
 	};
 
 	drawStopLoops = () => {
+		console.log( 'drawStopLoops' );
+		// data  should from reduce
 
+		requestAnimationFrame( () => {
+			this.draw()
+		} );
 	};
 
 	drawLoopsWithAngle = ( angle ) => {
