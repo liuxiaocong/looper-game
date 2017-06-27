@@ -11,8 +11,11 @@ export const LOOPER = {
 	INIT_SPEED: 0,
 	SPEED: {
 		//x : [0,PI/2]
-		SPEED_UP_TIME: 2,
+		SPEED_UP_TIME: 5000,
 		COEFFICIENT: 0.6,
+		MAX_SPEED: 0.6 * 1,
+		MIN_SPEED:0.05,
+		SPEED_DOWN_TIME:5000
 	}
 };
 

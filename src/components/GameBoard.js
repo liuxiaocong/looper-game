@@ -139,9 +139,9 @@ class GameBoard extends Component {
 			this.startTime = (new Date()).getTime();
 		}
 		this.drawLoopsWithAngle( this.angle );
-		this.speed = this.getSpeed();
-		console.log( "speed:" + this.speed );
-		this.angle += this.speed;
+		this.currentSpeed = this.getSpeed();
+		console.log( "speed:" + this.currentSpeed );
+		this.angle += this.currentSpeed;
 		requestAnimationFrame( () => {
 			this.draw()
 		} );
@@ -234,11 +234,26 @@ class GameBoard extends Component {
 	}
 
 	getSpeed() {
-		let timeCostPercent = ((new Date()).getTime() - this.start) / consts.LOOPER.SPEED.SPEED_UP_TIME;
-		let x = Math.PI / 2 * timeCostPercent;
-		//y:[0,1]
-		let y = Math.sin( x );
-		return y * consts.LOOPER.SPEED.COEFFICIENT;
+		let timePast = ((new Date()).getTime() - this.startTime);
+		if ( timePast <= consts.LOOPER.SPEED.SPEED_UP_TIME ) {
+			//speed up period
+			let timeCostPercent = timePast / consts.LOOPER.SPEED.SPEED_UP_TIME;
+			if ( timeCostPercent > 1 ) {
+				timeCostPercent = 1;
+			}
+			let x = Math.PI / 2 * timeCostPercent;
+			//y:[0,1]
+			let y = Math.sin( x );
+			console.log(y);
+			return y * consts.LOOPER.SPEED.COEFFICIENT;
+		} else if ( timePast <= (consts.LOOPER.SPEED.SPEED_UP_TIME + consts.LOOPER.SPEED.SPEED_DOWN_TIME) ) {
+			let pastPercent = (timePast - consts.LOOPER.SPEED.SPEED_UP_TIME) / consts.LOOPER.SPEED.SPEED_DOWN_TIME;
+			let y = consts.LOOPER.SPEED.MAX_SPEED - pastPercent * (consts.LOOPER.SPEED.MAX_SPEED - consts.LOOPER.SPEED.MIN_SPEED);
+			return y;
+		} else {
+			return consts.LOOPER.SPEED.MIN_SPEED;
+		}
+
 	}
 }
 
