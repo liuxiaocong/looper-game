@@ -1,0 +1,22 @@
+.result-page {
+  text-align: center;
+}
+
+.result-page .logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.result-page .well {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200px;
+}
+
+.result-page .well h1 {
+  margin: 0;
+}
+

@@ -1,0 +1,11 @@
+.avatar {
+    width: 240px;
+    height: 240px;
+    border: solid 8px rgb(253, 192, 87);
+    border-radius: 50%;
+}
+
+.avatar img {
+    max-width: 100%;
+    border-radius: 50%;
+}

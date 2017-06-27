@@ -3,7 +3,7 @@
  */
 
 export const Util = {
-  setPixelated: function(context) {
+  setPixelated(context) {
     context['imageSmoothingEnabled'] = false;
     /* standard */
     context['mozImageSmoothingEnabled'] = false;
@@ -16,9 +16,21 @@ export const Util = {
     /* IE */
   },
 
-  getPxFromDp: function(dp) {
+  getPxFromDp(dp) {
     return window.devicePixelRatio * dp;
   },
+
+  getDimensions(dp) {
+    const screenWidth = window.document.body.clientWidth;
+    return screenWidth - this.getPxFromDp(dp);
+  },
+
+  layout() {
+    const scale = 1 / window.devicePixelRatio;
+    document.documentElement.style.zoom = scale * 100 + '%';
+    document.documentElement.style.fontSize = 14 / scale + 'px';
+  },
+
 };
 
 export const ImageUtil = {
@@ -27,7 +39,7 @@ export const ImageUtil = {
     _image.onload = function() {
       //console.log("onload:" + uri);
       context.drawImage(_image, x, y);
-    }
+    };
     _image.src = uri;
   },
 };

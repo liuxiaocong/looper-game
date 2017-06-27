@@ -1,0 +1,27 @@
+.radio-group {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.radio-group .radio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: solid 2px #a4602c;
+}
+
+.radio-group .radio.checked {
+    background-image: linear-gradient(to right, #0c862e, #56cc3e);
+    border: solid 2px #63310b;
+    color: #ffffff;
+}
+
+.radio-group .radio-label {
+    margin-left: .8rem;
+    color: #edc5a6;
+    font-weight: bold;
+}
