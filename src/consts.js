@@ -16,7 +16,7 @@ export const UI = {
 	LOOPER_SIZE: 290,
 	AVATAR_SIZE: 36,
 	LOOPER_COLORS: [
-		"#000000",
+		// "#000000",
 		"#fda76e",
 		"#ffc26d",
 		"#34d939",

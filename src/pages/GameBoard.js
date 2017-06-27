@@ -12,7 +12,7 @@ class GameBoard extends Component {
 	constructor( props ) {
 		super( props );
 		this.gameState = props.data;
-		let userData = DEBUG_DATA.USER_LIST.slice( 0, 2 );
+		let userData = DEBUG_DATA.USER_LIST.slice( 0, 6 );
 		for ( let i = 0; i < userData.length; i++ ) {
 			let user = userData[ i ];
 			if ( user.avatar ) {
