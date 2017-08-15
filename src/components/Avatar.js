@@ -6,16 +6,32 @@ import PropTypes from 'prop-types';
 import './Avatar.css';
 
 
-const Avatar = ({ url }) => {
-  return (
-    <div className="avatar">
-      <img src={url} alt=""/>
-    </div>
-  )
-};
+class Avatar extends React.Component {
 
-Avatar.propTypes = {
-  url: PropTypes.string,
-};
+  static propTypes = {
+    url: PropTypes.string.isRequired,
+    size: PropTypes.number, // because it is a square, so just need one side.
+    hasBorder: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    size: 240,
+    hasBorder: true,
+  };
+
+  render() {
+    const { url, size } = this.props;
+
+    const borderStyle = this.props.hasBorder
+      ? 'with-border'
+      : '';
+
+    return (
+      <div className={`avatar ${borderStyle}`} style={{ width: size, height: size }}>
+        <img src={url} alt=""/>
+      </div>
+    )
+  }
+}
 
 export default Avatar;

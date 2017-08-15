@@ -1,0 +1,33 @@
+.user-kick-list {
+    margin: 0;
+    padding: 0;
+}
+
+.user-kick-list li {
+    display: flex;
+    align-items: center;
+    padding: .6rem;
+    border-bottom: .5px solid rgba(163, 97, 45, 0.5);
+}
+
+.user-kick-list .close-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 72px;
+    height: 72px;
+    background-image: linear-gradient(to right, #b11c1c, #e11428);
+    border: solid 2px #3d1e06;
+    color: #ffffff;
+}
+
+.user-kick-list .avatar {
+    margin: 0 40px;
+}
+
+.user-kick-list .name {
+    color: #edc5a6;
+    font-size: 1rem;
+    font-weight: bold;
+}

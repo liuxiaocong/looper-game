@@ -6,28 +6,40 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import GameReducer from './redux/reducer';
 import createBrowserHistory from 'history/createBrowserHistory'
-import { MainPage, ResultPage, GamePage, EntranceFeeSettingPage, MaxPlayerSettingPage, DescriptionPage } from './pages';
-import { Util } from './util'
+import { MessageReceiver } from './components';
+import { PkApi } from './gameSDK';
+import {
+  MainPage,
+  ResultPage,
+  GamePage,
+  EntranceFeeSettingPage,
+  MaxPlayerSettingPage,
+  DescriptionPage,
+  APITestPage,
+  KickingPage,
+} from './pages';
 import './main.css';
-
-// layout when create app.
-Util.layout();
-
+import FastClick from 'react-fastclick-alt';
 export const store = createStore(GameReducer);
 export const history = createBrowserHistory();
 
+
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
-      <div className="app" style={{ margin: Util.getPxFromDp(15) }}>
-        <Route exact path="/" component={MainPage}/>
-        <Route path="/entrance-fee" component={EntranceFeeSettingPage}/>
-        <Route path="/game" component={GamePage}/>
-        <Route path="/max-players" component={MaxPlayerSettingPage}/>
-        <Route path="/description" component={DescriptionPage}/>
-        <Route path="/result" component={ResultPage}/>
-      </div>
-    </Router>
-  </Provider>
+  <FastClick>
+    <Provider store={store}>
+      <Router history={history}>
+        <MessageReceiver>
+          <Route exact path="/" component={MainPage}/>
+          <Route path="/entrance-fee" component={EntranceFeeSettingPage}/>
+          <Route path="/game" component={GamePage}/>
+          <Route path="/kicking" component={KickingPage}/>
+          <Route path="/max-players" component={MaxPlayerSettingPage}/>
+          <Route path="/description" component={DescriptionPage}/>
+          <Route path="/result" component={ResultPage}/>
+          <Route path="/api" component={APITestPage}/>
+        </MessageReceiver>
+      </Router>
+    </Provider>
+  </FastClick>
   , document.getElementById('root'));
 

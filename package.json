@@ -3,16 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.16.2",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
+    "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
-    "redux": "^3.7.1"
+    "redux": "^3.7.1",
+    "socket.io-client": "^2.0.3",
+    "react-router-redux": "latest"
   },
   "devDependencies": {
+    "react-fastclick-alt": "^1.1.1",
     "react-scripts": "1.0.7"
   },
   "scripts": {

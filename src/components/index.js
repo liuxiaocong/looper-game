@@ -13,6 +13,11 @@ import ListRadio from './list/ListRadio';
 import Button from './Button';
 import GameBoard from './GameBoard';
 import Avatar from './Avatar';
+import GameBoardWithCache from './GameBoardWithCache'
+import MessageReceiver from './MessageReceiver';
+import UserKickList from './list/UserKickList';
+import PanelHeaderTextTitle from './panel/PanelHeaderTextTitle';
+import EndGameModal from './modal/EndGameModal';
 
 export {
   Panel,
@@ -26,4 +31,9 @@ export {
   GameBoard,
   ListRadio,
   Avatar,
+  GameBoardWithCache,
+  MessageReceiver,
+  UserKickList,
+  PanelHeaderTextTitle,
+  EndGameModal,
 };

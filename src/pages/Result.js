@@ -14,11 +14,7 @@ export default class Result extends React.Component {
     const exitButton = <PanelHeaderButton
       icon="fa-power-off"
       color="red"
-      onClick={() => {
-        console.log('123');
-        this.props.history.push('/')
-      }}
-    />;
+      onClick={() => this.props.history.push('/')}/>;
 
     return (
       <Panel
@@ -30,8 +26,8 @@ export default class Result extends React.Component {
           <Avatar url={testAvatar}/>
           <h1>Creative Mints</h1>
           <p>You earned 40 in the game!</p>
+          <Button text="Play Again" width="80%" onClick={() => this.props.history.push('/')}/>
         </Well>
-        <Button text="Play Again"/>
       </Panel>
     )
   }

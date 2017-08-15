@@ -1,0 +1,38 @@
+.game-page {
+    position: relative;
+}
+
+.game-page .btn {
+    position: absolute;
+    left: 50%;
+    z-index: 101;
+    background: url("../assets/bt_button_join_start.png") no-repeat center center;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-page .btn:hover {
+    background: url("../assets/bt_button_join_start_pressed.png") no-repeat center center;
+    background-size: contain;
+}
+
+.game-page .btn-text {
+    color: #dd6d14;
+    font-size: 26px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.game-page .tips {
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1.15;
+    color: #4d2e16;
+    text-shadow: 0 2px 0 #f68e3d;
+}

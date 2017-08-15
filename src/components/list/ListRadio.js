@@ -15,20 +15,20 @@ export default class ListRadio extends React.Component {
     onChange: PropTypes.func,
   };
 
-  onChange = (newValue) => {
+  onChange(newValue) {
     this.props.onChange({ [this.props.name]: newValue })
   };
 
   render() {
     const options = this.props.options.map(
       (option, index) =>
-        <li key={index}>
+        <li key={index} onClick={() => this.onChange(option.value)}>
           <Radio
             checked={this.props.value === option.value}
             name={this.props.name}
             label={option.text}
             value={option.value}
-            onChange={this.onChange}/>
+            onChange={(value) => this.onChange(value)}/>
         </li>,
     );
 

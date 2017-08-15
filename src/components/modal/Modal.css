@@ -1,3 +1,113 @@
 .modal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     font-size: 60px;
+    z-index: 101;
+}
+
+.modal.hide {
+    display: none;
+}
+
+.modal .back-drop {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .6);
+}
+
+.modal .modal-bg {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.modal .modal-bg .top-wrap {
+    display: flex;
+}
+
+.modal .modal-bg .top-left {
+    background: url("../../assets/bg_top_left.png");
+    background-size: contain;
+}
+
+.modal .modal-bg .top-middle {
+    background: url("../../assets/bg_top_middle.png");
+    background-size: contain;
+    flex-grow: 1;
+}
+
+.modal .modal-bg .top-right {
+    background: url("../../assets/bg_top_right.png");
+    background-size: contain;
+}
+
+.modal .modal-bg .middle-wrap {
+    display: flex;
+    flex-grow: 1;
+}
+
+.modal .modal-bg .middle-left {
+    background: url("../../assets/bg_middle_left.png");
+    background-size: contain;
+}
+
+.modal .modal-bg .middle-middle {
+    background: url("../../assets/bg_middle_middle.png");
+    flex-grow: 1;
+}
+
+.modal .modal-bg .middle-right {
+    background: url("../../assets/bg_middle_right.png");
+    background-size: contain;
+}
+
+.modal .modal-bg .bottom-wrap {
+    display: flex;
+}
+
+.modal .modal-bg .bottom-left {
+    background: url("../../assets/bg_bottom_left.png");
+    background-size: contain;
+}
+
+.modal .modal-bg .bottom-middle {
+    background: url("../../assets/bg_bottom_middle.png");
+    flex-grow: 1;
+    background-size: contain;
+}
+
+.modal .modal-bg .bottom-right {
+    background: url("../../assets/bg_bottom_right.png");
+    background-size: contain;
+}
+
+.modal .modal-content {
+    display: flex;
+    flex-flow: column nowrap;
+    z-index: 102;
+    padding: 1rem;
+    text-align: center;
+}
+
+.modal .modal-content .title {
+    padding: 1rem 0;
+}
+
+.modal .modal-content p {
+    margin: 0;
+    color: #ffcba3;
+    font-size: .9rem;
+}
+
+.modal .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1rem 0;
 }

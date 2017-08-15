@@ -18,3 +18,10 @@ img {
     align-items: center;
     justify-content: center;
 }
+
+a, span, p {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

@@ -23,7 +23,6 @@
 /* Inside Well */
 .well .list-item {
     background-color: rgba(166, 97, 46, 0.29);
-    box-shadow: 0 1px 0 0 #86542d, inset 0 1px 0 0 #86542d;
 }
 
 .well .list-item .list-item-content .title {

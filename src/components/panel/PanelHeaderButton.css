@@ -1,42 +1,51 @@
-.panel-left-button {
-    font-size: 80px;
+.panel-header-button {
+    font-size: 1.4rem;
     color: #ffffff;
     line-height: 1;
 }
 
-.panel-left-button span {
+.panel-header-button span {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.panel-left-button .outer {
-    width: 144px;
-    height: 144px;
-    background-image: linear-gradient(to right, #6a3913, #8f4710);
+.panel-header-button .outer {
+    width: 124px;
+    height: 124px;
+    background-image: linear-gradient(to bottom, #6a3913, #8f4710);
     box-shadow: inset 0 1px 0 0 #62330f, inset -0px -1px 0 0 rgba(255, 209, 173, 0.53);
     border-radius: 50%;
 }
 
-.panel-left-button .outer .inner {
-    width: 112px;
-    height: 112px;
+.panel-header-button .outer .inner {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
+    transition: all .2s;
 }
 
-/**
-    Themes
- */
+/** Themes */
 /* Blue */
-.panel-left-button.blue .outer .inner {
-    background-image: linear-gradient(to right, #0357d4, #1b81ff);
+.panel-header-button.blue .outer .inner {
+    background-image: linear-gradient(to bottom, #0357d4, #1b81ff);
     box-shadow: 0 7px 4px 0 rgba(8, 8, 21, 0.5), inset 0 4px 4px 0 #3eb4ff, inset 0 0 6px 0 #1717a9;
     border: solid 2px #170643;
 }
 
+.panel-header-button.blue:active .outer .inner {
+    background-image: linear-gradient(to bottom, rgb(1, 78, 195), rgb(0, 93, 207));
+    box-shadow: inset 0 2px 6px 0 rgba(0, 0, 0, 0.5), inset 0 0 10px 0 rgb(8, 8, 67);
+}
+
 /* Red */
-.panel-left-button.red .outer .inner {
-    background-image: linear-gradient(to right, #b11c1c, #e11428);
+.panel-header-button.red .outer .inner {
+    background-image: linear-gradient(to bottom, #b11c1c, #e11428);
     box-shadow: 0 7px 4px 0 rgba(8, 3, 3, 0.5), inset 0 4px 4px 0 #ff5353, inset 0 0 6px 0 #a93217;
     border: solid 2px #430611;
+}
+
+.panel-header-button.red:active .outer .inner {
+    background-image: linear-gradient(to bottom, rgb(177, 28, 28), rgb(225, 20, 40));
+    box-shadow: inset 0 2px 6px 0 rgba(0, 0, 0, 0.5), inset 0 0 10px 0 rgb(61, 6, 7);
 }

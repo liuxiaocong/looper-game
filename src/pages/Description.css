@@ -1,0 +1,8 @@
+.description ol {
+    padding: 0 2rem;
+    color: #edc5a6;
+}
+
+.description ol li {
+    margin-bottom: 1rem;
+}

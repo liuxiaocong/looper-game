@@ -11,9 +11,17 @@ export default class Well extends React.Component {
     hasPadding: PropTypes.bool,
   };
 
+  static defaultProps = {
+    hasPadding: true,
+  };
+
   render() {
+    const paddingStyle = this.props.hasPadding
+      ? 'padding'
+      : '';
+
     return (
-      <div className={`well ${this.props.hasPadding && 'padding'}`}>
+      <div className={`well ${paddingStyle}`}>
         {this.props.children}
       </div>
     )

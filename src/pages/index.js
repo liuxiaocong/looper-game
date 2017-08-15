@@ -8,6 +8,9 @@ import EntranceFeeSettingPage from './EntranceFeeSetting';
 import MaxPlayerSettingPage from './MaxPlayerSetting';
 import DescriptionPage from './Description';
 import ResultPage from './Result';
+import KickingPage from './Kicking';
+import APITestPage from './APITest'
+
 
 export {
   MainPage,
@@ -16,4 +19,6 @@ export {
   MaxPlayerSettingPage,
   DescriptionPage,
   ResultPage,
+  APITestPage,
+  KickingPage,
 };

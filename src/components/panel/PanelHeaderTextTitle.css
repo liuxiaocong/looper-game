@@ -1,0 +1,11 @@
+.panel-header-text-title {
+    font-size: .8rem;
+    text-align: center;
+    color: #4d2e16;
+    text-shadow: 0 2px 0 #ffa159;
+    font-weight: bold;
+}
+
+.panel-header-text-title p {
+    margin: 0;
+}

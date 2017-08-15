@@ -18,28 +18,27 @@ export default class Panel extends Component {
 
   static defaultProps = {
     hasHeader: false,
+    name: '',
   };
 
   render() {
     const cornerSize = Util.getPxFromDp(50);
     const panelSize = Util.getDimensions(30);
+    const headerHeight = Util.getPxFromDp(50);
 
     const panelHeader = this.props.hasHeader && (
-        <div className="panel-header" style={{ height: cornerSize }}>
-          {this.props.headerLeftButton || <span/>}
+        <div className="panel-header" style={{ height: headerHeight }}>
+          {this.props.headerLeftButton || <span className="place-holder"/>}
           {this.props.headerTitle || <span/>}
-          {this.props.headerRightButton || <span/>}
+          {this.props.headerRightButton || <span className="place-holder"/>}
         </div>
       );
 
-    const contentMargin = this.props.hasHeader
-      ? { paddingTop: cornerSize }
-      : {};
-
     return (
-      <div className={`panel ${this.props.name}`}>
+      <div className={`panel ${this.props.name}`} style={{ height: panelSize, width: panelSize }}>
+
         {/* this Bg thing only for background*/}
-        <div className="panel-bg" style={{ height: panelSize, width: panelSize }}>
+        <div className="panel-bg">
           <div className="top-wrap">
             <div className="top-left" style={{ width: cornerSize, height: cornerSize }}/>
             <div className="top-middle" style={{ height: cornerSize }}/>
@@ -59,9 +58,8 @@ export default class Panel extends Component {
           </div>
         </div>
 
-        {panelHeader}
-
-        <div className="panel-content" style={{ padding: Util.getPxFromDp(15), ...contentMargin }}>
+        <div className="panel-content" style={{ padding: Util.getPxFromDp(12) }}>
+          {panelHeader}
           { this.props.children }
         </div>
       </div>

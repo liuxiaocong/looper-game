@@ -2,11 +2,14 @@
     position: relative;
 }
 
+/* BG */
 .panel-bg {
     position: absolute;
     display: flex;
     flex-direction: column;
     z-index: -1;
+    width: 100%;
+    height: 100%;
 }
 
 .panel-bg .top-wrap {
@@ -69,14 +72,26 @@
     background-size: contain;
 }
 
-.panel-header {
+/* Content */
+.panel-content {
     position: absolute;
-    top: 0;
+    height: 100%;
     width: 100%;
-    padding: 40px;
     display: flex;
+    flex-flow: column nowrap;
+}
+
+.panel-content .panel-header {
+    width: 100%;
+    display: flex;
+    padding-bottom: 20px;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
     z-index: 100; /* make sure it will now be covered by other elements like images */
+}
+
+.panel-content .panel-header .place-holder {
+    display: block;
+    width: 144px;
 }

@@ -2,7 +2,7 @@
  * All Codes below are Lifetime Warranted by mozat-tomi since 25/6/17.
  */
 import React from 'react';
-import { Panel, PanelHeaderButton, Well, ListRadio } from '../components';
+import { Panel, PanelHeaderButton, Well, ListRadio, PanelHeaderTitle } from '../components';
 import { setEntranceFee } from '../redux/actions'
 import { connect } from 'react-redux'
 import { SettingKeys } from '../consts';
@@ -21,19 +21,21 @@ const mapDispatchToProps = dispatch => ({
 class EntranceFeeSetting extends React.Component {
 
   onChange = (newValue) => {
-    // return data format is liek  [name]: value
+    // return data format is like  [name]: value
     this.props.setEntranceFee(newValue[SettingKeys.EntranceFee]);
   };
 
   render() {
     const panelLeftButton = <PanelHeaderButton icon="fa-chevron-left"
                                                onClick={this.props.history.goBack}/>;
+    const panelHeaderTitle = <PanelHeaderTitle title="entrancefee"/>;
 
     return (
       <Panel
         hasHeader={true}
+        headerTitle={panelHeaderTitle }
         headerLeftButton={panelLeftButton}>
-        <Well>
+        <Well hasPadding={false}>
           <ListRadio
             name={SettingKeys.EntranceFee}
             options={[

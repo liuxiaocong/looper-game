@@ -13,7 +13,7 @@ export default class PanelHeaderTitle extends React.Component {
   };
 
   static defaultProps = {
-    title: 'description',
+    title: 'default',
   };
 
   render() {

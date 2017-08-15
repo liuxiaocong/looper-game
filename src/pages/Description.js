@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Panel, PanelHeaderButton, PanelHeaderTitle, Well } from '../components';
-
+import './Description.css';
 
 export default class Description extends React.Component {
 
@@ -19,10 +19,11 @@ export default class Description extends React.Component {
 
     return (
       <Panel
+        name="description"
         hasHeader={true}
         headerTitle={panelHeaderTitle}
         headerLeftButton={panelLeftButton}>
-        <Well>
+        <Well hasPadding={false}>
           <ol>
             <li>Host has the right to start game anytime without waiting all players joint.</li>
             <li>The winner of each round is able to kick out one player from the list. If winner do not do so, the winner will be kicked out from game.</li>

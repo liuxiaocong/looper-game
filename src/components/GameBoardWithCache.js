@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import './GameBorad.css';
 import { Util, LuckRouletteUtil } from '../util';
-import { UI } from '../consts';
+import { UI, DEBUG_DATA } from '../consts';
 import  * as consts from '../consts';
-import { connect } from 'react-redux';
-import { PkApi } from '../gameSDK';
+import { connect } from 'react-redux'
 import {
   setToIdle,
   setToPrepare,
@@ -12,7 +11,7 @@ import {
   setToStopRolling,
   setToPendingKick,
   setToReadyToStartNext,
-  setToResult,
+  setToResult
 } from '../redux/actions'
 // const screenWidth = window.document.body.clientWidth;
 // const canvasWidth = Util.getPxFromDp( screenWidth - 60 );
@@ -43,17 +42,17 @@ const mapDispatchToProps = dispatch => ({
   },
   setToResult: (winner, bonus) => {
     dispatch(setToResult(winner, bonus));
-  },
+  }
 });
 let canvasWidth = Util.getPxFromDp(UI.LOOPER_SIZE);
 let looperRadius = Util.getPxFromDp(UI.LOOPER_SIZE / 2 - 2);
-class GameBoard extends Component {
+class GameBoardWithCache extends Component {
 
   constructor(props) {
     super(props);
     canvasWidth = LuckRouletteUtil.getCanvasSize();
     looperRadius = LuckRouletteUtil.getRouletteRadius();
-    console.log('canvasWidth:' + canvasWidth);
+    console.log("canvasWidth:" + canvasWidth);
     this.gameState = props.gameStore[consts.GameStoreKeys.GameState];
     let userData = props.gameStore[consts.GameStoreKeys.GameData][consts.GameStoreKeys.GameDataKeys.Players].slice(0, 6);
     for (let i = 0; i < userData.length; i++) {
@@ -70,7 +69,7 @@ class GameBoard extends Component {
     this.state = {
       userList: userData,
       color: UI.LOOPER_COLORS,
-      gameData: props.gameStore[consts.GameStoreKeys.GameData],
+      gameData: props.gameStore[consts.GameStoreKeys.GameData]
     };
   }
 
@@ -94,15 +93,17 @@ class GameBoard extends Component {
             marginRight: 'auto',
             display: 'block',
           }} ref="canvas" width={canvasWidth} height={canvasWidth}/>
-        <div className="mask"/>
+        <div className="mask"></div>
       </div>
     )
   }
 
   componentDidMount() {
-    console.log('set context');
+    console.log("set context");
     this.canvasContext = this.refs.canvas.getContext('2d');
     this.canvas = this.refs.canvas;
+    //window.ctx = this.canvasContext;
+    //window.canv = this.refs.canvas;
     Util.setPixelated(this.canvasContext, true);
     this.loadImage();
     this.draw();
@@ -118,26 +119,16 @@ class GameBoard extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     this.gameState = nextProps.gameStore[consts.GameStoreKeys.GameState];
     let gameData = nextProps.gameStore[consts.GameStoreKeys.GameData];
-    //fix logic
-    if (this.gameState == consts.STATE.START_ROLLING
-      && gameData && gameData[consts.GameStoreKeys.Role] == consts.ROLE.HOST) {
-      this.requestStartGame();
-    }
     nextState.gameData = gameData;
     this.updateUserListData(gameData);
     console.log('shouldComponentUpdate:' + this.gameState);
     return false;
   }
 
-  requestStartGame = () => {
-    //update luckly guy
-
-  }
-
   updateUserListData = (gameData) => {
     let player = gameData[consts.GameStoreKeys.GameDataKeys.Players];
-    console.log('player.length:' + player.length);
-    if (!player || player.length === 0) {
+    console.log("player.length:" + player.length);
+    if (!player || player.length == 0) {
       this.state.userList = [];
       return
     }
@@ -148,7 +139,7 @@ class GameBoard extends Component {
         newUserList.push(this.state.userList[i]);
       }
     }
-    if (newUserList.length !== this.state.userList.length) {
+    if (newUserList.length != this.state.userList.length) {
       for (let j = 0; j < player; j++) {
         let uid = player[j].id;
         if (this.getIndexFromUserArrayById(uid, this.state.userList) < 0) {
@@ -168,15 +159,15 @@ class GameBoard extends Component {
     }
   };
 
-  getIndexFromUserArrayById = (userId, array) => {
+  getIndexFromUserArrayById(userId, array) {
     for (let i = 0; i < array.length; i++) {
       let user = array[i];
-      if (userId === user.id) {
+      if (userId == user.id) {
         return i;
       }
     }
     return -1;
-  };
+  }
 
   componentWillUpdate(nextProps, nextState) {
 
@@ -196,7 +187,7 @@ class GameBoard extends Component {
   draw() {
     switch (this.gameState) {
       case consts.STATE.PREPARE: {
-        if (this.latestDrawState === undefined || this.latestDrawState !== this.gameState) {
+        if (this.latestDrawState == undefined || this.latestDrawState != this.gameState) {
           this.drawInit();
         }
         break;
@@ -214,7 +205,7 @@ class GameBoard extends Component {
         break;
       }
       case consts.STATE.READY_TO_START_NEXT: {
-        if (this.latestDrawState === undefined || this.latestDrawState !== this.gameState) {
+        if (this.latestDrawState == undefined || this.latestDrawState != this.gameState) {
           this.drawLoopsIdel();
         }
         break;
@@ -235,7 +226,7 @@ class GameBoard extends Component {
   drawWaitKick = () => {
     console.log('drawWaitKick');
     this.angle = this.targetStopAngle;
-    if (this.state.userList && this.state.userList.length === 1) {
+    if (this.state.userList && this.state.userList.length == 1) {
       this.angle = -1 * Math.PI;
     }
     this.drawLoopsWithAngle(this.canvasContext, this.angle);
@@ -244,7 +235,7 @@ class GameBoard extends Component {
   drawLoopsIdel = () => {
     console.log('drawWaitKick');
     this.angle = -0.5 * Math.PI;
-    if (this.state.userList && this.state.userList.length === 1) {
+    if (this.state.userList && this.state.userList.length == 1) {
       this.angle = -1 * Math.PI;
     }
     this.drawLoopsWithAngle(this.canvasContext, this.angle);
@@ -253,10 +244,25 @@ class GameBoard extends Component {
   drawInit = () => {
     console.log('drawInit');
     this.angle = -0.5 * Math.PI;
-    if (this.state.userList && this.state.userList.length === 1) {
+    if (this.state.userList && this.state.userList.length == 1) {
       this.angle = -1 * Math.PI;
     }
     this.drawLoopsWithAngle(this.canvasContext, this.angle);
+    this.cacheCanvas = this.drawCacheCanvas();
+    if (!this.newCanvas) {
+      this.newCanvas = document.createElement('canvas');
+      this.newCanvas.width = canvasWidth;
+      this.newCanvas.height = canvasWidth;
+      this.newCanvasCtx = this.newCanvas.getContext('2d');
+    }
+  };
+
+  drawCacheCanvas = () => {
+    let canvas = document.createElement('canvas');
+    canvas.width = canvasWidth;
+    canvas.height = canvasWidth;
+    this.drawLoopsWithAngle(canvas.getContext('2d'), this.angle);
+    return canvas;
   };
 
   resetLooper = () => {
@@ -275,15 +281,19 @@ class GameBoard extends Component {
     if (!this.startTime) {
       this.startTime = (new Date()).getTime();
     }
-    this.drawLoopsWithAngle(this.canvasContext, this.angle);
-
+    //this.drawLoopsWithAngle(this.canvasContext, this.angle);
+    this.clear(this.canvasContext);
+    this.clear(this.newCanvasCtx);
+    this.newCanvasCtx.save();
+    this.newCanvasCtx.translate(canvasWidth / 2, canvasWidth / 2);
+    this.newCanvasCtx.rotate(this.angle);
+    this.newCanvasCtx.drawImage(this.cacheCanvas, 0, 0, canvasWidth, canvasWidth, -canvasWidth / 2, -canvasWidth / 2, canvasWidth, canvasWidth);
+    this.newCanvasCtx.restore();
+    this.canvasContext.drawImage(this.newCanvas, 0, 0);
     this.currentSpeed = this.getSpeed();
-    if (this.currentSpeed === consts.LOOPER.SPEED.MIN_SPEED) {
+    if (this.currentSpeed == consts.LOOPER.SPEED.MIN_SPEED) {
       //todo set to stop and report
-      if (this.state.gameData[consts.GameStoreKeys.GameDataKeys.LuckGuy]) {
-        this.gameState = consts.STATE.STOP_LOOPS;
-
-      }
+      //this.gameState = consts.STATE.STOP_LOOPS;
     }
     this.angle += this.currentSpeed;
   };
@@ -298,10 +308,10 @@ class GameBoard extends Component {
     this.acceleratedSpeed = this.currentSpeed / consts.LOOPER.SPEED.TIME_PERIOD_WHEN_RECEIVE_STOP;
     this.stopSpeed = this.currentSpeed;
 
-    console.log('currentAngle:' + this.angle);
-    console.log('targetStopAngle:' + this.targetStopAngle);
-    console.log('stopSpeed:' + this.stopSpeed);
-    console.log('acceleratedSpeed:' + this.acceleratedSpeed);
+    console.log("currentAngle:" + this.angle);
+    console.log("targetStopAngle:" + this.targetStopAngle);
+    console.log("stopSpeed:" + this.stopSpeed);
+    console.log("acceleratedSpeed:" + this.acceleratedSpeed);
   };
 
   drawStopLoops = () => {
@@ -324,22 +334,24 @@ class GameBoard extends Component {
   };
 
   drawAvatar(ctx, user, radius, x, y) {
-    ctx.save();
+
+    let context = ctx;
+    context.save();
     //context.globalCompositeOperation = 'destination-in';
-    ctx.beginPath();
+    context.beginPath();
     if (!user.isReady) {
-      ctx.fillStyle = '#000';
-      ctx.strokeStyle = '#000';
+      context.fillStyle = '#000';
+      context.strokeStyle = '#000';
     }
-    ctx.arc(x, y, radius, 0, Math.PI * 4, true);
-    ctx.stroke();
-    ctx.closePath();
-    ctx.fill();
-    ctx.clip();
+    context.arc(x, y, radius, 0, Math.PI * 4, true);
+    context.stroke();
+    context.closePath();
+    context.fill();
+    context.clip();
     if (user.isReady) {
-      ctx.drawImage(user.image, 0, 0, user.image.width, user.image.height, x - radius, y - radius, radius * 2, radius * 2);
+      context.drawImage(user.image, 0, 0, user.image.width, user.image.height, x - radius, y - radius, radius * 2, radius * 2);
     }
-    ctx.restore();
+    context.restore();
   }
 
   drawLoopsWithAngle = (ctx, angle) => {
@@ -352,7 +364,7 @@ class GameBoard extends Component {
     if (!this.lineImage.isReady) {
       return;
     }
-    if (this.state.userList && this.state.userList.length === 1) {
+    if (this.state.userList && this.state.userList.length == 1) {
       return;
     }
     let lineAngle = angle - 0.5 * Math.PI;
@@ -407,7 +419,7 @@ class GameBoard extends Component {
   };
 
   clear = (ctx) => {
-    ctx && this.refs.canvas && ctx.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
+    ctx && ctx.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
   };
 
   getSpeed() {
@@ -422,8 +434,8 @@ class GameBoard extends Component {
           let currentRoundCount = Math.floor(this.angle / (Math.PI * 2));
           let dxPoint = Math.PI * 2 * (1 / this.state.userList.length);
           this.targetStopAngle = Math.PI * 2 * (currentRoundCount + 1) + (dxPoint * (this.state.userList.length - targetIndex - 1) + dxPoint / 2) - 0.5 * Math.PI;
-          console.log('targetStopAngle:' + this.targetStopAngle);
-          console.log('current Angle:' + this.angle);
+          console.log("targetStopAngle:" + this.targetStopAngle);
+          console.log("current Angle:" + this.angle);
         }
       }
       return speed;
@@ -439,12 +451,8 @@ class GameBoard extends Component {
         //y:[0,1]
         let y = Math.sin(x);
         return y * consts.LOOPER.SPEED.COEFFICIENT;
-
-      } else if (timePast <= (consts.LOOPER.SPEED.SPEED_UP_TIME + consts.LOOPER.SPEED.MAX_SPEED_KEEP_TIME)) {
-        return consts.LOOPER.SPEED.COEFFICIENT;
-
-      } else if (timePast <= (consts.LOOPER.SPEED.SPEED_UP_TIME + consts.LOOPER.SPEED.MAX_SPEED_KEEP_TIME + consts.LOOPER.SPEED.SPEED_DOWN_TIME)) {
-        let pastPercent = (timePast - consts.LOOPER.SPEED.SPEED_UP_TIME - consts.LOOPER.SPEED.MAX_SPEED_KEEP_TIME) / consts.LOOPER.SPEED.SPEED_DOWN_TIME;
+      } else if (timePast <= (consts.LOOPER.SPEED.SPEED_UP_TIME + consts.LOOPER.SPEED.SPEED_DOWN_TIME)) {
+        let pastPercent = (timePast - consts.LOOPER.SPEED.SPEED_UP_TIME) / consts.LOOPER.SPEED.SPEED_DOWN_TIME;
         return consts.LOOPER.SPEED.MAX_SPEED - pastPercent * (consts.LOOPER.SPEED.MAX_SPEED - consts.LOOPER.SPEED.MIN_SPEED);
       } else {
         return consts.LOOPER.SPEED.MIN_SPEED;
@@ -456,4 +464,4 @@ class GameBoard extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(GameBoard);
+)(GameBoardWithCache);
