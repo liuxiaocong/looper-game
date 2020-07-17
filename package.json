@@ -6,7 +6,7 @@
     "axios": "^0.16.2",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
